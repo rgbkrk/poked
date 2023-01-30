@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "pokedex"
+version = "0.1.0"
+description = ""
+authors = ["Kyle Kelley <rgbkrk@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+gql = "^3.4.0"
+appdirs = "^1.4.4"
+aiohttp = "^3.8.3"
+pandas = "^1.5.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+gql = "^3.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
