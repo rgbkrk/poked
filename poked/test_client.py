@@ -199,7 +199,7 @@ class TestClient(unittest.IsolatedAsyncioTestCase):
         # and the one we expect
         hokey_df = pd.DataFrame(data["pokemon_v2_pokemon"]).set_index("id")
 
-        common_columns = ["name", "base_experience", "height", "weight"]
+        common_columns = ["Name", "Base Experience", "Height", "Weight"]
 
         pd.testing.assert_frame_equal(result[common_columns], hokey_df[common_columns])
 

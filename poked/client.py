@@ -67,6 +67,10 @@ async def run_query(
 def convert_list_query_data(list_of_pokemon):
     # Let's iterate over the rows to flatten the types and stats
     for pokemon in list_of_pokemon:
+        for key in ["name", "base_experience", "height", "weight"]:
+            pokemon[key.replace("_", " ").title()] = pokemon[key]
+            del pokemon[key]
+
         # Flatten the types
         types = pokemon["pokemon_v2_pokemontypes"]
         for t in types:
