@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup nox
-        uses: daisylb/setup-nox@v2.1.0
       - name: Setup poetry
         uses: Gr1N/setup-poetry@v8
       - name: Install dependencies
@@ -32,13 +30,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup nox
-        uses: daisylb/setup-nox@v2.1.0
-      - name: Setup poetry
-        uses: Gr1N/setup-poetry@v8
-      - name: Install dependencies
-        run: |
-          poetry export -f requirements.txt --without-hashes --with dev --output requirements.txt
-          pip install -r requirements.txt
+      - name: Install Black
+        run: pip install black
       - name: Check black
         run: black --check poked
