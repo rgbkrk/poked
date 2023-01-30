@@ -3,9 +3,10 @@
 
 import unittest
 import poked.client as client
-import poked.cache as cache
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, AsyncMock
+
+from gql import gql
 
 
 class TestClient(unittest.IsolatedAsyncioTestCase):
@@ -51,6 +52,23 @@ class TestClient(unittest.IsolatedAsyncioTestCase):
         # Assert that it was called with the correct arguments
         mock_cache.assert_not_called()
         mock_get.assert_called_with("test")
+
+    @patch("poked.cache.get_cached_query", return_value=None)
+    @patch("poked.cache.cache_query", return_value=None)
+    async def test_run_query(self, mock_cache, mock_get):
+        graphql_client = AsyncMock()
+        query = gql(
+            """
+        {
+            junk {
+                test
+            }
+        }
+        """
+        )
+        result = await client.run_query(query, client=graphql_client)
+
+        graphql_client.execute.assert_called_with(query, variable_values=None)
 
 
 if __name__ == "__main__":
