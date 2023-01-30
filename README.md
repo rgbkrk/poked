@@ -1,8 +1,8 @@
 # PokéDEX
 
-This package was put together as a teaching tool for learning how to work with data. The PokéAPI provides the core data for this package.
+This package was put together as a teaching tool for working with data. The PokéAPI provides the core data for this package.
 
-To be friendly to the PokéAPI, this package will only make one request to the API per session. This means that if you want to use the data in a different session, you will need to make a new request.
+To be friendly to the PokéAPI, this package caches queries to the API.
 
 ## Installation
 
@@ -13,11 +13,28 @@ pip install poked
 ## Usage
 
 ```python
-from poked import poked
+In [1]: import poked
 
-df = poked.get_pokemon()
+In [2]: poked.list_pokemon()
+Out[2]: <coroutine object list_pokemon at 0x106541440>
 
-df.head()
+In [3]: await poked.list_pokemon()
+Out[3]:
+                         name  base_experience  height  weight Type (Primary) Type (Secondary)  ...  Is Mythical  Is Legendary                      Evolution Chain  Evolution Chain Length   Color      Shape
+id                                                                                              ...
+1                   bulbasaur             64.0       7      69          grass           poison  ...        False         False       [bulbasaur, ivysaur, venusaur]                     3.0   green  quadruped
+2                     ivysaur            142.0      10     130          grass           poison  ...        False         False       [bulbasaur, ivysaur, venusaur]                     3.0   green  quadruped
+3                    venusaur            263.0      20    1000          grass           poison  ...        False         False       [bulbasaur, ivysaur, venusaur]                     3.0   green  quadruped
+4                  charmander             62.0       6      85           fire             None  ...        False         False  [charmander, charmeleon, charizard]                     3.0     red    upright
+5                  charmeleon            142.0      11     190           fire             None  ...        False         False  [charmander, charmeleon, charizard]                     3.0     red    upright
+...                       ...              ...     ...     ...            ...              ...  ...          ...           ...                                  ...                     ...     ...        ...
+10245           dialga-origin              NaN      70    8487          steel           dragon  ...        False          True                             [dialga]                     1.0   white  quadruped
+10246           palkia-origin              NaN      63    6590          water           dragon  ...        False          True                             [palkia]                     1.0  purple    upright
+10247  basculin-white-striped              NaN      10     180          water             None  ...        False         False                           [basculin]                     1.0   green       fish
+10248      basculegion-female              NaN      30    1100          water            ghost  ...        False         False                                 None                     NaN   green       fish
+10249        enamorus-therian              NaN      16     480          fairy           flying  ...        False          True                                 None                     NaN    pink       arms
+
+[1154 rows x 29 columns]
 ```
 
 ## Contributing
