@@ -33,4 +33,4 @@ jobs:
       - name: Install Black
         run: pip install black
       - name: Check black
-        run: black --check poked
+        run: black --check poked tests
