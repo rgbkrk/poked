@@ -1,4 +1,4 @@
-import pokedex.client as client
+import poked.client as client
 import asyncio
 
 

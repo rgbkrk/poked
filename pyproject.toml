@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pokedex"
+name = "poked"
 version = "0.1.0"
 description = ""
 authors = ["Kyle Kelley <rgbkrk@gmail.com>"]

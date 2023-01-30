@@ -5,8 +5,8 @@
 from gql import gql
 
 # We use the cache to cache the results of queries
-import pokedex.cache as cache
-import pokedex.queries as queries
+import poked.cache as cache
+import poked.queries as queries
 
 from gql import Client, gql
 from gql.transport.aiohttp import AIOHTTPTransport

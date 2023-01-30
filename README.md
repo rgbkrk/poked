@@ -7,15 +7,15 @@ To be friendly to the PokéAPI, this package will only make one request to the A
 ## Installation
 
 ```bash
-pip install pokedex
+pip install poked
 ```
 
 ## Usage
 
 ```python
-from pokedex import pokedex
+from poked import poked
 
-df = pokedex.get_pokemon()
+df = poked.get_pokemon()
 
 df.head()
 ```
