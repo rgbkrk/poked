@@ -12,15 +12,14 @@ import json
 import hashlib
 import appdirs
 
-# The cache directory
-cache_dir = appdirs.user_cache_dir("poked")
+CACHE_DIR = "poked"
 
 
 def get_cache_filename(query):
     """Return the filename for the given query in the cache directory"""
     # Hash the query to get a unique filename
     hash = hashlib.sha256(query.encode("utf-8")).hexdigest()
-    return os.path.join(cache_dir, hash)
+    return os.path.join(appdirs.user_cache_dir(CACHE_DIR), hash)
 
 
 def get_cached_query(query):
@@ -42,6 +41,16 @@ def get_cached_query(query):
 def cache_query(query, result):
     """Cache the result for the given query"""
     filename = get_cache_filename(query)
-    os.makedirs(cache_dir, exist_ok=True)
+    os.makedirs(appdirs.user_cache_dir(CACHE_DIR), exist_ok=True)
     with open(filename, "w") as f:
         json.dump(result, f)
+
+
+def clear_cache(query=None):
+    """Clear the cache, or just the given query if specified"""
+    if query is None:
+        os.remove(appdirs.user_cache_dir(CACHE_DIR))
+    else:
+        filename = get_cache_filename(query)
+        if os.path.exists(filename):
+            os.remove(filename)
