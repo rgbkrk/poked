@@ -15,11 +15,8 @@ pip install poked
 ```python
 In [1]: import poked
 
-In [2]: poked.list_pokemon()
-Out[2]: <coroutine object list_pokemon at 0x106541440>
-
-In [3]: await poked.list_pokemon()
-Out[3]:
+In [2]: await poked.list_pokemon()
+Out[2]:
                          name  base_experience  height  weight Type (Primary) Type (Secondary)  ...  Is Mythical  Is Legendary                      Evolution Chain  Evolution Chain Length   Color      Shape
 id                                                                                              ...
 1                   bulbasaur             64.0       7      69          grass           poison  ...        False         False       [bulbasaur, ivysaur, venusaur]                     3.0   green  quadruped
