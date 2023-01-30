@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "poked"
-version = "0.2.0"
-description = ""
+version = "0.3.0"
+description = "Play with Pokemon Data using Pandas"
 authors = ["Kyle Kelley <rgbkrk@gmail.com>"]
 
 [tool.poetry.dependencies]
