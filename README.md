@@ -36,6 +36,10 @@ id                                                                              
 [1154 rows x 29 columns]
 ```
 
+## Visualization Examples
+
+![Noteable notebook of Poked in action. Shows a chart of HP vs Base Experience for all the regular pokemon](https://user-images.githubusercontent.com/836375/215500425-f475a39c-0cb8-4b38-a883-72f793b67e90.png)
+
 ## Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
