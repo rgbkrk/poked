@@ -1,8 +1,5 @@
 import unittest
-
 from unittest.mock import mock_open, patch
-
-import os.path
 
 from poked import cache
 

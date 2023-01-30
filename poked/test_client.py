@@ -2,13 +2,12 @@
 # Path: poked/test_client.py
 
 import unittest
-import poked.client as client
-
-from unittest.mock import patch, AsyncMock
-
-from gql import gql
+from unittest.mock import AsyncMock, patch
 
 import pandas as pd
+from gql import gql
+
+import poked.client as client
 
 
 class TestClient(unittest.IsolatedAsyncioTestCase):

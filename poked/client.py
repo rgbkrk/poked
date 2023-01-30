@@ -1,17 +1,15 @@
 # The client bindings here use queries.py to build GraphQL queries, and
 # cache.py to cache the results.  The client code is in client.py:
 
+import pandas as pd
+
 # We use the gql library to build GraphQL queries
-from gql import gql
+from gql import Client, gql
+from gql.transport.aiohttp import AIOHTTPTransport
 
 # We use the cache to cache the results of queries
 import poked.cache as cache
 import poked.queries as queries
-
-from gql import Client, gql
-from gql.transport.aiohttp import AIOHTTPTransport
-
-import pandas as pd
 
 # The endpoint for the GraphQL API
 endpoint = "https://beta.pokeapi.co/graphql/v1beta"

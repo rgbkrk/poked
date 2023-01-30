@@ -1,5 +1,3 @@
-# GraphQL queries for the poked app
-
 # Query for the Pokemon list
 pokemon_list_query = """
     query GetPokemon {

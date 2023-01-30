@@ -7,9 +7,10 @@
 # after the query's hash.  The file contains the query's result, in
 # JSON format.
 
-import os
-import json
 import hashlib
+import json
+import os
+
 import appdirs
 
 CACHE_DIR = "poked"
