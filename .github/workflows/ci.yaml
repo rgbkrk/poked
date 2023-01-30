@@ -23,9 +23,11 @@ jobs:
         run: |
           poetry export -f requirements.txt --without-hashes --with dev --output requirements.txt
           pip install -r requirements.txt
+          cat requirements.txt
+          pip install pandas
       - name: Run tests
         run: python -m unittest
-  lint:
+  format-check:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
