@@ -152,7 +152,7 @@ def convert_list_query_data(list_of_pokemon):
 
         pokemon["Mega"] = False
         # The API does not have a field for mega evolutions, so we need to check the name
-        if pokemon["Name"].contains("-mega"):
+        if "-mega" in pokemon["Name"]:
             pokemon["Mega"] = True
 
         # The evolution chain is a list of pokemon names. The evolution chain can be null
