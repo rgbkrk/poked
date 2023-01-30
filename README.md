@@ -39,9 +39,9 @@ id                                                                              
 ## Visualization Examples
 
 [![Noteable notebook of Poked in action. Shows a chart of HP vs Base Experience for all the regular pokemon](https://user-images.githubusercontent.com/836375/215500425-f475a39c-0cb8-4b38-a883-72f793b67e90.png)
-](https://app.noteable.io/f/ef4018a1-c483-40ad-8c70-5a3e1a47b5a9/Demo-Poked.ipynb)
+](https://app.noteable.io/published/02e272a1-e6cd-45db-ad9b-3f6ec2aa38a3)
 
-[Demo Notebook](https://app.noteable.io/f/ef4018a1-c483-40ad-8c70-5a3e1a47b5a9/Demo-Poked.ipynb)
+[Demo Notebook](https://app.noteable.io/published/02e272a1-e6cd-45db-ad9b-3f6ec2aa38a3)
 
 ## Contributing
 
