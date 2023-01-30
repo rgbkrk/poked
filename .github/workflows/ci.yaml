@@ -26,11 +26,7 @@ jobs:
           poetry export -f requirements.txt --without-hashes --with dev --output requirements.txt
           pip install -r requirements.txt
       - name: Run tests
-        run: nox -s test-${{ matrix.python_version }}
-      - name: Generate coverage XML
-        run: nox -s generate_coverage_xml
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        run: python -m unittest
   lint:
     runs-on: ubuntu-20.04
     steps:
@@ -44,5 +40,5 @@ jobs:
         run: |
           poetry export -f requirements.txt --without-hashes --with dev --output requirements.txt
           pip install -r requirements.txt
-      - name: Run lint
-        run: nox -s lint
+      - name: Check black
+        run: black --check poked
