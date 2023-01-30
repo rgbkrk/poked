@@ -129,9 +129,9 @@ def convert_list_query_data(list_of_pokemon):
 
         pokemon["Base Happiness"] = specy["base_happiness"]
         pokemon["Capture Rate"] = specy["capture_rate"]
-        pokemon["Is Baby"] = specy["is_baby"]
-        pokemon["Is Mythical"] = specy["is_mythical"]
-        pokemon["Is Legendary"] = specy["is_legendary"]
+        pokemon["Baby"] = specy["is_baby"]
+        pokemon["Mythical"] = specy["is_mythical"]
+        pokemon["Legendary"] = specy["is_legendary"]
 
         # The evolution chain is a list of pokemon names. The evolution chain can be null
         # if the pokemon is not evolved. In that case, we should set the evolution chain to None

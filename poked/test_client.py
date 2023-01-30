@@ -195,6 +195,14 @@ class TestClient(unittest.IsolatedAsyncioTestCase):
         }
         result = client.convert_list_query_data(data["pokemon_v2_pokemon"])
 
+        # Assert that the column names are all title case
+        pd.testing.assert_index_equal(
+            result.columns.drop(["HP", "HP Effort", "Number of Appearances"]),
+            result.columns.drop(
+                ["HP", "HP Effort", "Number of Appearances"]
+            ).str.title(),
+        )
+
         # First we'll compare columns that should be shared between our computed DataFrame
         # and the one we expect
         hokey_df = pd.DataFrame(data["pokemon_v2_pokemon"]).set_index("id")
@@ -218,9 +226,9 @@ class TestClient(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(trubbish["Speed"], 65)
         self.assertEqual(trubbish["Base Happiness"], 50)
         self.assertEqual(trubbish["Capture Rate"], 190)
-        self.assertEqual(trubbish["Is Baby"], False)
-        self.assertEqual(trubbish["Is Mythical"], False)
-        self.assertEqual(trubbish["Is Legendary"], False)
+        self.assertEqual(trubbish["Baby"], False)
+        self.assertEqual(trubbish["Mythical"], False)
+        self.assertEqual(trubbish["Legendary"], False)
 
         self.assertEqual(trubbish["Evolution Chain"], ["trubbish", "garbodor"])
         self.assertEqual(trubbish["Color"], "green")
