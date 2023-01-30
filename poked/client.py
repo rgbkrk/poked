@@ -54,14 +54,25 @@ async def run_query(
     if isinstance(query, str):
         query = gql(query)
 
-    # If they have a client, use that
-    if client:
-        return await client.execute(query, variable_values=variables)
+    try:
+        # If they have a client, use that
+        if client:
+            return await client.execute(query, variable_values=variables)
 
-    # Otherwise, create a new client
-    async with Client(transport=transport, fetch_schema_from_transport=True) as session:
-        result = await session.execute(query)
-        return result
+        # Otherwise, create a new client
+        async with Client(
+            transport=transport, fetch_schema_from_transport=True
+        ) as session:
+            result = await session.execute(query, variable_values=variables)
+            return result
+    except Exception as e:
+        print("Error running query against PokeAPI")
+        print(e)
+
+        print("Falling back on old data")
+        import requests
+
+        return requests.get("https://poke-sprites.vercel.app/data.json").json()
 
 
 def convert_list_query_data(list_of_pokemon):
