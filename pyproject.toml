@@ -6,10 +6,10 @@ authors = ["Kyle Kelley <rgbkrk@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-gql = "^3.4.0"
-appdirs = "^1.4.4"
-aiohttp = "^3.8.3"
-pandas = "^1.5.3"
+gql = "^3.4"
+appdirs = "^1.4"
+aiohttp = "^3.8"
+pandas = "^1.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
