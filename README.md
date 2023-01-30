@@ -2,7 +2,7 @@
 
 This package was put together as a teaching tool for working with data. The PokéAPI provides the core data for this package.
 
-To be friendly to the PokéAPI, this package caches queries to the API.
+To be friendly to the PokéAPI, this package caches queries.
 
 ## Installation
 
