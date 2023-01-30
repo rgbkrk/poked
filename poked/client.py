@@ -133,6 +133,28 @@ def convert_list_query_data(list_of_pokemon):
         pokemon["Mythical"] = specy["is_mythical"]
         pokemon["Legendary"] = specy["is_legendary"]
 
+        pokemon["Ultra Beast"] = False
+        # The API does not have a field for ultra beasts, so we need to check the name
+        if pokemon["Name"] in [
+            "nihilego",
+            "buzzwole",
+            "pheromosa",
+            "xurkitree",
+            "celesteela",
+            "kartana",
+            "guzzlord",
+            "poipole",
+            "naganadel",
+            "stakataka",
+            "blacephalon",
+        ]:
+            pokemon["Ultra Beast"] = True
+
+        pokemon["Mega"] = False
+        # The API does not have a field for mega evolutions, so we need to check the name
+        if pokemon["Name"].contains("-mega"):
+            pokemon["Mega"] = True
+
         # The evolution chain is a list of pokemon names. The evolution chain can be null
         # if the pokemon is not evolved. In that case, we should set the evolution chain to None
         pokemon["Evolution Chain"] = None

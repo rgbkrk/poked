@@ -1,7 +1,10 @@
 # Rely on appdirs to set up a cache for the poked app
 #
 # The cache is stored in the user's cache directory, which is
-# platform-specific.  On Linux, it's in ~/.cache/poked.
+# platform-specific.  On Linux, it's in ~/.cache/poked. On MacOS
+# it's in ~/Library/Caches/poked. On Windows it's in %LOCALAPPDATA%\poked.
+#
+# That also depends on other env vars, so see the appdirs docs for more info.
 #
 # The cache is a directory containing a file for each query, named
 # after the query's hash.  The file contains the query's result, in
