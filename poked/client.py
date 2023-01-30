@@ -66,12 +66,9 @@ async def run_query(
         return result
 
 
-async def list_pokemon():
-    # Execute the query on a transport
-    list_of_pokemon = await run_query(queries.pokemon_list_query)
-
+def convert_list_query_data(list_of_pokemon):
     # Let's iterate over the rows to flatten the types and stats
-    for pokemon in list_of_pokemon["pokemon_v2_pokemon"]:
+    for pokemon in list_of_pokemon:
         # Flatten the types
         types = pokemon["pokemon_v2_pokemontypes"]
         for t in types:
@@ -83,14 +80,32 @@ async def list_pokemon():
             else:
                 pokemon[f"Type ({slot})"] = t["pokemon_v2_type"]["name"]
 
+        if "Type (Secondary)" not in pokemon:
+            pokemon["Type (Secondary)"] = None
+
         del pokemon["pokemon_v2_pokemontypes"]
 
-        # Flatten the stats
+        # Pull out the stats and efforts individually, applying the
+        # effort after the stat for aesthetics
         stats = pokemon["pokemon_v2_pokemonstats"]
+        effort = {}
+
         for s in stats:
+            # These should be capitalized like HP, Attack, Special Defense, etc.
+            # special-defense becomes Special Defense
             stat_name = s["pokemon_v2_stat"]["name"]
+            if stat_name == "hp":
+                stat_name = "HP"
+            else:
+                stat_name = stat_name.title()
+
+            stat_name = stat_name.replace("-", " ")
+
             pokemon[stat_name] = s["base_stat"]
-            pokemon[stat_name + " effort"] = s["effort"]
+
+            effort[stat_name + " Effort"] = s["effort"]
+
+        pokemon.update(effort)
 
         del pokemon["pokemon_v2_pokemonstats"]
 
@@ -103,6 +118,7 @@ async def list_pokemon():
         ]
 
         pokemon["Game Appearances"] = game_indices
+        pokemon["Number of Appearances"] = len(game_indices) if game_indices else None
 
         del pokemon["pokemon_v2_pokemongameindices"]
 
@@ -124,6 +140,10 @@ async def list_pokemon():
                 for p in specy["pokemon_v2_evolutionchain"]["pokemon_v2_pokemonspecies"]
             ]
 
+        pokemon["Evolution Chain Length"] = (
+            len(pokemon["Evolution Chain"]) if pokemon["Evolution Chain"] else None
+        )
+
         pokemon["Color"] = specy["pokemon_v2_pokemoncolor"]["name"]
 
         pokemon["Shape"] = None
@@ -132,5 +152,11 @@ async def list_pokemon():
 
         del pokemon["pokemon_v2_pokemonspecy"]
 
-    df = pd.DataFrame(list_of_pokemon["pokemon_v2_pokemon"]).set_index("id")
+    df = pd.DataFrame(list_of_pokemon).set_index("id")
     return df
+
+
+async def list_pokemon() -> pd.DataFrame:
+    # Execute the query on a transport
+    result = await run_query(queries.pokemon_list_query)
+    return convert_list_query_data(result["pokemon_v2_pokemon"])
