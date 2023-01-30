@@ -21,7 +21,6 @@ jobs:
         uses: Gr1N/setup-poetry@v8
       - name: Install dependencies
         run: |
-          poetry env use
           poetry install --no-interaction
       - name: Run tests
         run: poetry run python -m unittest
