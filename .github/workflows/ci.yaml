@@ -21,10 +21,7 @@ jobs:
         uses: Gr1N/setup-poetry@v8
       - name: Install dependencies
         run: |
-          poetry export -f requirements.txt --without-hashes --with dev --output requirements.txt
-          pip install -r requirements.txt
-          cat requirements.txt
-          pip install pandas
+          poetry install
       - name: Run tests
         run: python -m unittest
   format-check:
