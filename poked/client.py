@@ -1,6 +1,7 @@
 # The client bindings here use queries.py to build GraphQL queries, and
 # cache.py to cache the results.  The client code is in client.py:
 
+from typing import Optional
 import pandas as pd
 
 # We use the gql library to build GraphQL queries
@@ -191,22 +192,38 @@ def convert_list_query_data(list_of_pokemon):
     return df
 
 
-# That doesn't work. Here's the error output:
-# Type "PokemonList" cannot be assigned to type variable "S1@Series"
+class PokemonClient:
+    # Cache the DataFrame to make lookup quick
+    _all_pokemon_df: Optional[pd.DataFrame] = None
+
+    @classmethod
+    async def get_pokemon(cls, name: str) -> pd.Series:
+        """
+        Get a pokemon by name
+        """
+        # Assume we can use the cached DataFrame and not have to go through
+        # copying the dataframe
+        all_pokemon: Optional[pd.DataFrame] = cls._all_pokemon_df
+
+        # Otherwise, build the cache
+        if all_pokemon is None:
+            all_pokemon = await cls.list_pokemon()
+
+        filtered = all_pokemon[all_pokemon["Name"] == name]
+        if len(filtered) == 0:
+            raise ValueError(f"Pokemon {name} not found")
+        return filtered.iloc[0]
+
+    @classmethod
+    async def list_pokemon(cls) -> pd.DataFrame:
+        if cls._all_pokemon_df is not None:
+            return cls._all_pokemon_df.copy()
+
+        # Execute the query on a transport
+        result = await run_query(queries.pokemon_list_query)
+        cls._all_pokemon_df = convert_list_query_data(result["pokemon_v2_pokemon"])
+        return cls._all_pokemon_df.copy()
 
 
-async def get_pokemon(name: str) -> pd.Series:
-    """
-    Get a pokemon by name
-    """
-    all_pokemon = await list_pokemon()
-    filtered = all_pokemon[all_pokemon["Name"] == name]
-    if len(filtered) == 0:
-        raise ValueError(f"Pokemon {name} not found")
-    return filtered.iloc[0]
-
-
-async def list_pokemon() -> pd.DataFrame:
-    # Execute the query on a transport
-    result = await run_query(queries.pokemon_list_query)
-    return convert_list_query_data(result["pokemon_v2_pokemon"])
+get_pokemon = PokemonClient.get_pokemon
+list_pokemon = PokemonClient.list_pokemon
