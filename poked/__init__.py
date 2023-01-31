@@ -1,3 +1,3 @@
-__version__ = "0.6.0"
+__version__ = "0.8.0"
 
-from .client import list_pokemon
+from .client import PokemonClient
