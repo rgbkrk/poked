@@ -191,6 +191,21 @@ def convert_list_query_data(list_of_pokemon):
     return df
 
 
+# That doesn't work. Here's the error output:
+# Type "PokemonList" cannot be assigned to type variable "S1@Series"
+
+
+async def get_pokemon(name: str) -> pd.Series:
+    """
+    Get a pokemon by name
+    """
+    all_pokemon = await list_pokemon()
+    filtered = all_pokemon[all_pokemon["Name"] == name]
+    if len(filtered) == 0:
+        raise ValueError(f"Pokemon {name} not found")
+    return filtered.iloc[0]
+
+
 async def list_pokemon() -> pd.DataFrame:
     # Execute the query on a transport
     result = await run_query(queries.pokemon_list_query)
