@@ -10,6 +10,7 @@ gql = "^3.4"
 appdirs = "^1.4"
 aiohttp = "^3.8"
 pandas = "^1.5"
+ipython = "^8.9.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -18,3 +19,10 @@ gql = "^3.4.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+include = ["./poked"]
+exclude = ["./tests"]
+
+pythonVersion = "3.9"
+reportMissingImports = true
