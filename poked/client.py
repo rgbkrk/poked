@@ -202,6 +202,12 @@ def convert_list_query_data(list_of_pokemon):
         del pokemon["pokemon_v2_pokemonspecy"]
 
     df = pd.DataFrame(list_of_pokemon).set_index("id")
+
+    # Include an easy way to filter out Legendaries, Mythicals, Ultra Beasts, and Megas
+    df["Legendary or Mythical or Ultra Beast or Mega"] = (
+        df["Legendary"] | df["Mythical"] | df["Ultra Beast"] | df["Mega"]
+    )
+
     return df
 
 

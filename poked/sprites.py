@@ -1,6 +1,6 @@
 # We have to import display.display in this way for mocks to work
 import IPython.display
-from IPython.display import Image
+from IPython.core.display import Image
 
 from poked.client import get_pokemon
 
