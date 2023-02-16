@@ -1,6 +1,3 @@
-# The client bindings here use queries.py to build GraphQL queries, and
-# cache.py to cache the results.  The client code is in client.py:
-
 from typing import Optional
 import pandas as pd
 
