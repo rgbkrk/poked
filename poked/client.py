@@ -68,9 +68,13 @@ async def run_query(
         print(e)
 
         print("Falling back on old data")
-        import requests
 
-        return requests.get("https://poke-sprites.vercel.app/data.json").json()
+        import urllib.request
+
+        with urllib.request.urlopen(
+            "https://poke-sprites.vercel.app/data.json"
+        ) as response:
+            return response.read()
 
 
 def convert_list_query_data(list_of_pokemon):
@@ -138,9 +142,21 @@ def convert_list_query_data(list_of_pokemon):
 
         pokemon["Base Happiness"] = specy["base_happiness"]
         pokemon["Capture Rate"] = specy["capture_rate"]
-        pokemon["Baby"] = specy["is_baby"]
-        pokemon["Mythical"] = specy["is_mythical"]
-        pokemon["Legendary"] = specy["is_legendary"]
+
+        # The API will just leave is_baby not set if it's false, so we need to set it to False otherwise
+        pokemon["Baby"] = False
+        if "is_baby" in specy:
+            pokemon["Baby"] = specy["is_baby"]
+
+        # Same for mythical and legendary
+
+        pokemon["Mythical"] = False
+        if "is_mythical" in specy:
+            pokemon["Mythical"] = specy["is_mythical"]
+
+        pokemon["Legendary"] = False
+        if "is_legendary" in specy:
+            pokemon["Legendary"] = specy["is_legendary"]
 
         pokemon["Ultra Beast"] = False
         # The API does not have a field for ultra beasts, so we need to check the name
