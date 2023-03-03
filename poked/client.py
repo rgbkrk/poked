@@ -68,11 +68,9 @@ async def run_query(
         print(e)
 
         print("Falling back on old data")
-
         import requests
 
-        response = requests.get("https://poke-sprites.vercel.app/data.json")
-        return response.json()
+        return requests.get("https://poke-sprites.vercel.app/data.json").json()
 
 
 def convert_list_query_data(list_of_pokemon):
